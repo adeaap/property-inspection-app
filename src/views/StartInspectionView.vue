@@ -105,7 +105,6 @@ const router = useRouter()
 const props = defineProps<{
   inspectionId: string
 }>()
-console.log('props', props)
 
 const showingGeolocationDialog = ref(false)
 const currentAction = ref<InspectionAction | null>(null)
@@ -182,7 +181,6 @@ const handlePosition = async (
   currentLocation.value = position
   showingGeolocationDialog.value = false
   showingInspectionFormDialog.value = true
-  console.log('position', position)
 }
 
 const handleFinishInspection = async () => {

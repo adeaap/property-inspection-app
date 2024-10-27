@@ -78,8 +78,6 @@ const showingGeolocationDialog = defineModel({
   default: false,
 })
 
-console.log('showingGeolocationDialog', showingGeolocationDialog.value)
-
 function closeDialog() {
   showingGeolocationDialog.value = false
 }

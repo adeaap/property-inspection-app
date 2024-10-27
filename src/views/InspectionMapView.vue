@@ -86,7 +86,7 @@ import {
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import type { InspectionFinding } from '@/db'
 import MapContainer from '@/features/inspections/MapContainer.vue'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 
 const mapData = defineModel<InspectionFinding | null>({
   type: Object,
@@ -98,12 +98,6 @@ const inspectionFinding = ref<InspectionFinding | null>(null)
 onMounted(() => {
   if (mapData.value) {
     inspectionFinding.value = mapData.value
-  }
-})
-
-watch(mapData, newVal => {
-  if (newVal) {
-    console.log('newVal mapData =>', newVal)
   }
 })
 

@@ -183,8 +183,6 @@ const showingInspectionFormDialog = defineModel({
   default: false,
 })
 
-console.log('showingInspectionFormDialog', showingInspectionFormDialog.value)
-
 function closeDialog() {
   showingInspectionFormDialog.value = false
 }

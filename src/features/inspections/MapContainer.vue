@@ -14,8 +14,6 @@ export default {
   mounted() {
     const { longitude, latitude } = this.modelValue
 
-    console.log('mounted this.modelValue', this.modelValue)
-
     const map = new mapboxgl.Map({
       container: this.$refs.mapContainer as HTMLElement,
       style: 'mapbox://styles/mapbox/streets-v12',

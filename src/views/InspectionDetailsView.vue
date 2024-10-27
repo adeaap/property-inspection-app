@@ -78,7 +78,6 @@ import InspectionFindingList from '@/features/inspections/InspectionFindingList.
 const props = defineProps<{
   inspectionId: string
 }>()
-console.log(props.inspectionId)
 
 const allInpectionInfo = ref<AllInpectionInfo | null>(null)
 

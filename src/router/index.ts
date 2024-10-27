@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import InspectionsView from '@/views/InspectionsView.vue'
 import StartInspectionView from '@/views/StartInspectionView.vue'
 import InspectionDetailsView from '@/views/InspectionDetailsView.vue'
+import ExampleView from '@/views/ExampleView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,6 +11,12 @@ const router = createRouter({
       path: '/',
       name: 'inspections',
       component: InspectionsView,
+    },
+    {
+      path: '/examples/:routeName',
+      name: 'examples',
+      props: true,
+      component: ExampleView,
     },
     {
       path: '/inspection/details/:inspectionId',

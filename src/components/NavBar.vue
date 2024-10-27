@@ -12,10 +12,10 @@
           </div>
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
-              <a
+              <RouterLink
                 v-for="item in navigation"
                 :key="item.name"
-                :href="item.href"
+                :to="item.href"
                 :class="[
                   item.current
                     ? 'bg-indigo-700 text-white'
@@ -23,8 +23,9 @@
                   'rounded-md px-3 py-2 text-sm font-medium',
                 ]"
                 :aria-current="item.current ? 'page' : undefined"
-                >{{ item.name }}</a
               >
+                {{ item.name }}
+              </RouterLink>
             </div>
           </div>
         </div>
@@ -70,14 +71,23 @@
                     :key="item.name"
                     v-slot="{ active }"
                   >
-                    <a
+                    <RouterLink
+                      :to="item.href"
+                      :class="[
+                        active ? 'bg-gray-100' : '',
+                        'block px-4 py-2 text-sm text-gray-700',
+                      ]"
+                    >
+                      {{ item.name }}
+                    </RouterLink>
+                    <!-- <a
                       :href="item.href"
                       :class="[
                         active ? 'bg-gray-100' : '',
                         'block px-4 py-2 text-sm text-gray-700',
                       ]"
                       >{{ item.name }}</a
-                    >
+                    > -->
                   </MenuItem>
                 </MenuItems>
               </transition>
@@ -164,10 +174,12 @@ import {
   MenuItems,
 } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { ref, watch } from 'vue'
 
-// import { useRouter } from 'vue-router'
+import { useRoute, RouterLink } from 'vue-router'
 
 // const router = useRouter()
+const route = useRoute()
 
 const user = {
   name: 'Tom Cook',
@@ -175,15 +187,26 @@ const user = {
   imageUrl:
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
-const navigation = [
-  { name: 'Inspections', href: '#', current: true },
-  { name: 'Properties', href: '#', current: false },
-  { name: 'Clients', href: '#', current: false },
-  { name: 'Inspectors', href: '#', current: false },
-]
+
+const navigation = ref([
+  { name: 'Inspections', href: '/', current: true },
+  { name: 'Properties', href: '/examples/Properties', current: false },
+  { name: 'Clients', href: '/examples/Clients', current: false },
+  { name: 'Inspectors', href: '/examples/Inspectors', current: false },
+])
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
   { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' },
 ]
+
+watch(
+  () => route.path,
+  newPath => {
+    navigation.value.forEach(item => {
+      item.current = item.href === newPath
+    })
+  },
+  { immediate: true },
+)
 </script>

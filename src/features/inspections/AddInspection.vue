@@ -564,15 +564,13 @@ const inspectionDate = ref()
 const handleFormSubmit = async (e: Event) => {
   e.preventDefault()
   try {
-    console.log('inspectionDate ', inspectionDate.value)
-    const inspectionID = await addInspection({
+    await addInspection({
       clientId: clientSelected.value,
       inspectorId: inspectorSelected.value,
       propertyId: propertySelected.value,
       inspectionDate: inspectionDate.value,
       status: 'scheduled',
     })
-    console.log('Inspection added with ID: ', inspectionID)
     open.value = false
   } catch (error) {
     console.error(error)
