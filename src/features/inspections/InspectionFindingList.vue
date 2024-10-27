@@ -70,12 +70,10 @@
         <div
           v-for="inspectionFinding in props.allInpectionInfo.inspectionFindings"
           :key="inspectionFinding.inspectionId"
-          class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white cursor-pointer"
+          class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white cursor-pointer hover:shadow-lg"
           @click="showingMap = inspectionFinding"
         >
-          <div
-            class="aspect-h-4 aspect-w-3 bg-gray-200 sm:aspect-none group-hover:opacity-75 sm:h-96"
-          >
+          <div class="aspect-h-4 aspect-w-3 bg-gray-200 sm:aspect-none sm:h-96">
             <img
               :src="imgArrayBuffertoBase64(inspectionFinding.photo)"
               :alt="inspectionFinding.description"
