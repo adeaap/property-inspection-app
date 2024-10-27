@@ -50,19 +50,6 @@
             >
               <ExclamationCircleIcon class="h-6 w-6" aria-hidden="true" />
             </span>
-            <!-- <span
-              :class="[
-                actions[inspectionFinding.type].iconBackground,
-                actions[inspectionFinding.type].iconForeground,
-                'inline-flex rounded-lg p-3 ring-4 ring-white',
-              ]"
-            >
-              <component
-                :is="actions[inspectionFinding.type].icon"
-                class="h-6 w-6"
-                aria-hidden="true"
-              />
-            </span> -->
           </div>
         </div>
         <p class="text-sm italic text-gray-500">

@@ -29,18 +29,7 @@
           v-for="action in actions"
           :key="action.title"
           class="group relative p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 rounded-lg"
-          :class="[
-            action.cardBackground,
-            // actionIdx === 0
-            //   ? 'rounded-tl-lg rounded-tr-lg sm:rounded-tr-none'
-            //   : '',
-            // actionIdx === 1 ? 'sm:rounded-tr-lg' : '',
-            // actionIdx === actions.length - 2 ? 'sm:rounded-bl-lg' : '',
-            // actionIdx === actions.length - 1
-            //   ? 'rounded-bl-lg rounded-br-lg sm:rounded-bl-none'
-            //   : '',
-            // 'group relative  p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 rounded-lg',
-          ]"
+          :class="[action.cardBackground]"
           @click="e => handleClick(action)"
         >
           <div>
@@ -56,14 +45,9 @@
           </div>
           <div class="mt-8">
             <h3 class="text-2xl font-semibold leading-6 text-gray-900">
-              <!-- Extend touch target to entire panel -->
               <span class="absolute inset-0" aria-hidden="true" />
               {{ action.title }}
             </h3>
-            <!-- <p class="mt-2 text-sm text-gray-500">
-              Doloribus dolores nostrum quia qui natus officia quod et dolorem.
-              Sit repellendus qui ut at blanditiis et quo et molestiae.
-            </p> -->
           </div>
         </div>
       </div>
@@ -151,11 +135,6 @@ const handleClick = (action: InspectionAction) => {
         console.error('Failed to add inspection:', error)
         showingGeolocationDialog.value = false
         alert(`Failed to add ${action.title}: ${error}`)
-        // setOpenSnackbar(true)
-        // setSnackbarInfo({
-        //   severity: 'error',
-        //   message: `Failed to add ${action.title}: ${error}`,
-        // })
       },
       {
         maximumAge: 0,
@@ -165,11 +144,6 @@ const handleClick = (action: InspectionAction) => {
   } else {
     showingGeolocationDialog.value = false
     alert('Geolocation is not supported by your browser.')
-    // setOpenSnackbar(true)
-    // setSnackbarInfo({
-    //   severity: 'error',
-    //   message: `Failed to add ${action.title}:  "Geolocation is not supported by your browser."`,
-    // })
   }
 }
 

@@ -58,15 +58,6 @@ export default {
     },
   },
 
-  // export interface InspectionFinding {
-  // findingId: string
-  // inspectionId: string
-  // description: string
-  // latitude: number
-  // longitude: number
-  // type: 'GOOD' | 'WARNING' | 'CRITICAL'
-  // photo: ArrayBuffer
-
   methods: {
     getLocation() {
       if (!this.map) {
