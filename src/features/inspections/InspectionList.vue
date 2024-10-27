@@ -63,7 +63,7 @@
             >, {{ inspection.inspectionId }}</span
           >
         </a> -->
-        <Menu as="div" class="relative flex-none">
+        <!-- <Menu as="div" class="relative flex-none">
           <MenuButton
             class="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900"
           >
@@ -119,7 +119,7 @@
               </MenuItem>
             </MenuItems>
           </transition>
-        </Menu>
+        </Menu> -->
       </div>
     </li>
   </ul>
@@ -192,8 +192,11 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { EllipsisVerticalIcon, PlayCircleIcon } from '@heroicons/vue/20/solid'
+// import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import {
+  // EllipsisVerticalIcon,
+  PlayCircleIcon,
+} from '@heroicons/vue/20/solid'
 
 // Local DB
 import { db } from '@/db'

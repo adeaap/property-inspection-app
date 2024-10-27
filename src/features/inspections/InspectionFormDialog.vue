@@ -151,6 +151,8 @@ import {
 
 import type { InspectionAction } from '@/db'
 
+// Components
+
 // Services
 import { addInspectionFinding } from '@/services/db-api'
 
@@ -230,6 +232,7 @@ const handleFormSubmit = async (e: Event) => {
 
     closeDialog()
     resetForm()
+    alert('Inspection finding saved successfully.')
   } catch (error) {
     console.error('Failed to save inspection:', error)
     alert(

@@ -16,7 +16,7 @@
     </div>
     <MapContainer v-model="mapData" class="map-container" />
     <div
-      class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white cursor-pointer"
+      class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
     >
       <div class="aspect-h-4 aspect-w-3 bg-gray-200 sm:aspect-none sm:h-96">
         <img
