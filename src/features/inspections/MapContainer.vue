@@ -4,12 +4,12 @@
 
 <script lang="ts">
 import mapboxgl from 'mapbox-gl'
-mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN as string
+mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 
 export default {
   props: ['modelValue'],
 
-  data: () => ({ map: null }),
+  data: () => ({ map: null }) as { map: mapboxgl.Map | null },
 
   mounted() {
     const { longitude, latitude } = this.modelValue
@@ -35,10 +35,11 @@ export default {
     map.on('rotate', updateLocation)
     map.on('pitch', updateLocation)
 
-    this.map = map
+    this.map = map as any
   },
 
   unmounted() {
+    if (!this.map) return
     this.map.remove()
     this.map = null
   },
@@ -47,6 +48,8 @@ export default {
     modelValue(next) {
       const curr = this.getLocation()
       const map = this.map
+
+      if (!map) return
 
       if (curr.lng != next.lng || curr.lat != next.lat)
         map.setCenter({ lng: next.lng, lat: next.lat })
@@ -67,6 +70,9 @@ export default {
 
   methods: {
     getLocation() {
+      if (!this.map) {
+        return this.modelValue
+      }
       return {
         ...this.map.getCenter(),
         bearing: this.map.getBearing(),
