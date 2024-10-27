@@ -84,7 +84,6 @@ export type InspectionAction = {
   type: 'GOOD' | 'WARNING' | 'CRITICAL'
 }
 
-
 export type AllInpectionInfo = {
   inspectionInfo: Inspection
   clientInfo: Client
@@ -117,11 +116,9 @@ async function populateSampleData(transaction: Transaction) {
       },
     ]
 
-    const propertyIds = await transaction
-      .table('properties')
-      .bulkAdd(properties, {
-        allKeys: true,
-      })
+    await transaction.table('properties').bulkAdd(properties, {
+      allKeys: true,
+    })
 
     const clients: Client[] = [
       {
@@ -136,7 +133,7 @@ async function populateSampleData(transaction: Transaction) {
       },
     ]
 
-    const clientIds = await transaction.table('clients').bulkAdd(clients, {
+    await transaction.table('clients').bulkAdd(clients, {
       allKeys: true,
     })
 
@@ -157,77 +154,75 @@ async function populateSampleData(transaction: Transaction) {
       },
     ]
 
-    const inspectorIds = await transaction
-      .table('inspectors')
-      .bulkAdd(inspectors, {
-        allKeys: true,
-      })
+    await transaction.table('inspectors').bulkAdd(inspectors, {
+      allKeys: true,
+    })
 
-    const inspections: Inspection[] = [
-      {
-        inspectionId: uuidv4(),
-        propertyId: propertyIds[0],
-        inspectorId: inspectorIds[0],
-        clientId: clientIds[0],
-        inspectionDate: new Date().toISOString().split('T')[0],
-        status: 'scheduled',
-      },
-      {
-        inspectionId: uuidv4(),
-        propertyId: propertyIds[1],
-        inspectorId: inspectorIds[1],
-        clientId: clientIds[1],
-        inspectionDate: new Date().toISOString().split('T')[0],
-        status: 'completed',
-      },
-      {
-        inspectionId: uuidv4(),
-        propertyId: propertyIds[0],
-        inspectorId: inspectorIds[1],
-        clientId: clientIds[0],
-        inspectionDate: new Date().toISOString().split('T')[0],
-        status: 'canceled',
-      },
-      {
-        inspectionId: uuidv4(),
-        propertyId: propertyIds[1],
-        inspectorId: inspectorIds[0],
-        clientId: clientIds[1],
-        inspectionDate: new Date().toISOString().split('T')[0],
-        status: 'scheduled',
-      },
-    ]
+    // const inspections: Inspection[] = [
+    //   {
+    //     inspectionId: uuidv4(),
+    //     propertyId: propertyIds[0],
+    //     inspectorId: inspectorIds[0],
+    //     clientId: clientIds[0],
+    //     inspectionDate: new Date().toISOString().split('T')[0],
+    //     status: 'scheduled',
+    //   },
+    //   {
+    //     inspectionId: uuidv4(),
+    //     propertyId: propertyIds[1],
+    //     inspectorId: inspectorIds[1],
+    //     clientId: clientIds[1],
+    //     inspectionDate: new Date().toISOString().split('T')[0],
+    //     status: 'completed',
+    //   },
+    //   {
+    //     inspectionId: uuidv4(),
+    //     propertyId: propertyIds[0],
+    //     inspectorId: inspectorIds[1],
+    //     clientId: clientIds[0],
+    //     inspectionDate: new Date().toISOString().split('T')[0],
+    //     status: 'canceled',
+    //   },
+    //   {
+    //     inspectionId: uuidv4(),
+    //     propertyId: propertyIds[1],
+    //     inspectorId: inspectorIds[0],
+    //     clientId: clientIds[1],
+    //     inspectionDate: new Date().toISOString().split('T')[0],
+    //     status: 'scheduled',
+    //   },
+    // ]
 
-    const inspectionIds = await transaction
-      .table('inspections')
-      .bulkAdd(inspections, {
-        allKeys: true,
-      })
+    // const inspectionIds = await transaction
+    //   .table('inspections')
+    //   .bulkAdd(inspections, {
+    //     allKeys: true,
+    //   })
 
-    const inspectionFindings: InspectionFinding[] = [
-      {
-        findingId: uuidv4(),
-        inspectionId: inspectionIds[0],
-        description: 'Exposed wiring in the attic.',
-        latitude: 37.7749,
-        longitude: 122.4194,
-        photo: new ArrayBuffer(0),
-        type: 'CRITICAL',
-      },
-      {
-        findingId: uuidv4(),
-        inspectionId: inspectionIds[1],
-        description: 'Cracked foundation in the basement.',
-        latitude: 37.7749,
-        longitude: 122.4194,
-        photo: new ArrayBuffer(0),
-        type: 'WARNING',
-      },
-    ]
+    // const inspectionFindings: InspectionFinding[] = [
+    //   {
+    //     findingId: uuidv4(),
+    //     inspectionId: inspectionIds[0],
+    //     description: 'Exposed wiring in the attic.',
+    //     latitude: 37.7749,
+    //     longitude: 122.4194,
+    //     photo: new ArrayBuffer(0),
+    //     type: 'CRITICAL',
+    //   },
+    //   {
+    //     findingId: uuidv4(),
+    //     inspectionId: inspectionIds[1],
+    //     description: 'Cracked foundation in the basement.',
+    //     latitude: 37.7749,
+    //     longitude: 122.4194,
+    //     photo: new ArrayBuffer(0),
+    //     type: 'WARNING',
+    //   },
+    // ]
 
-    await db.inspectionFindings.bulkAdd(inspectionFindings)
+    // await db.inspectionFindings.bulkAdd(inspectionFindings)
 
-    console.log('Sample data inserted successfully.')
+    // console.log('Sample data inserted successfully.')
   } catch (error) {
     console.error('Error populating sample data:', error)
   }

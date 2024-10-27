@@ -1,6 +1,7 @@
 <template>
   <div v-if="showingMap" class="flex flex-col gap-4">
-    <div class="flex gap-4 items-center">
+    <InspectionMapView v-model="showingMap" class="map-container" />
+    <!-- <div class="flex gap-4 items-center">
       <button
         @click="showingMap = null"
         type="button"
@@ -57,7 +58,7 @@
           {{ showingMap.description }}
         </p>
       </div>
-    </div>
+    </div> -->
   </div>
   <div v-else class="bg-white">
     <div class="mx-auto max-w-2xl px-6 py-6 lg:max-w-7xl lg:px-8">
@@ -129,14 +130,14 @@ import {
   HandThumbUpIcon,
   ExclamationTriangleIcon,
   ExclamationCircleIcon,
-  XMarkIcon,
 } from '@heroicons/vue/24/outline'
 
 import type { AllInpectionInfo, InspectionFinding } from '@/db'
 import { ref, watch } from 'vue'
 
 // Components
-import MapContainer from '@/features/inspections/MapContainer.vue'
+import InspectionMapView from '@/views/InspectionMapView.vue'
+// import MapContainer from '@/features/inspections/MapContainer.vue'
 
 const props = defineProps<{
   allInpectionInfo: AllInpectionInfo
