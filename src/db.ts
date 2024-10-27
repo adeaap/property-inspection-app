@@ -2,6 +2,12 @@
 import Dexie, { type EntityTable, type Transaction } from 'dexie'
 import { v4 as uuidv4 } from 'uuid'
 
+// Assets
+import Critial1 from '@/assets/critical-1.png'
+import Good1 from '@/assets/good-1.png'
+import Good2 from '@/assets/good-2.png'
+import Warning1 from '@/assets/warning-1.png'
+
 const db = new Dexie('InspectionsDatabase') as Dexie & {
   inspections: EntityTable<Inspection, 'inspectionId'>
   properties: EntityTable<Property, 'propertyId'>
@@ -92,6 +98,14 @@ export type AllInpectionInfo = {
   inspectionFindings: InspectionFinding[]
 }
 
+async function imagePathToArrayBuffer(imagePath: string): Promise<ArrayBuffer> {
+  const response = await fetch(imagePath)
+  if (!response.ok) {
+    throw new Error(`Failed to fetch image at path: ${imagePath}`)
+  }
+  return await response.arrayBuffer()
+}
+
 // Method to insert sample data
 async function populateSampleData(transaction: Transaction) {
   try {
@@ -116,9 +130,11 @@ async function populateSampleData(transaction: Transaction) {
       },
     ]
 
-    await transaction.table('properties').bulkAdd(properties, {
-      allKeys: true,
-    })
+    const propertyIds = await transaction
+      .table('properties')
+      .bulkAdd(properties, {
+        allKeys: true,
+      })
 
     const clients: Client[] = [
       {
@@ -133,7 +149,7 @@ async function populateSampleData(transaction: Transaction) {
       },
     ]
 
-    await transaction.table('clients').bulkAdd(clients, {
+    const clientIds = await transaction.table('clients').bulkAdd(clients, {
       allKeys: true,
     })
 
@@ -154,75 +170,71 @@ async function populateSampleData(transaction: Transaction) {
       },
     ]
 
-    await transaction.table('inspectors').bulkAdd(inspectors, {
-      allKeys: true,
-    })
+    const inspectorIds = await transaction
+      .table('inspectors')
+      .bulkAdd(inspectors, {
+        allKeys: true,
+      })
 
-    // const inspections: Inspection[] = [
-    //   {
-    //     inspectionId: uuidv4(),
-    //     propertyId: propertyIds[0],
-    //     inspectorId: inspectorIds[0],
-    //     clientId: clientIds[0],
-    //     inspectionDate: new Date().toISOString().split('T')[0],
-    //     status: 'scheduled',
-    //   },
-    //   {
-    //     inspectionId: uuidv4(),
-    //     propertyId: propertyIds[1],
-    //     inspectorId: inspectorIds[1],
-    //     clientId: clientIds[1],
-    //     inspectionDate: new Date().toISOString().split('T')[0],
-    //     status: 'completed',
-    //   },
-    //   {
-    //     inspectionId: uuidv4(),
-    //     propertyId: propertyIds[0],
-    //     inspectorId: inspectorIds[1],
-    //     clientId: clientIds[0],
-    //     inspectionDate: new Date().toISOString().split('T')[0],
-    //     status: 'canceled',
-    //   },
-    //   {
-    //     inspectionId: uuidv4(),
-    //     propertyId: propertyIds[1],
-    //     inspectorId: inspectorIds[0],
-    //     clientId: clientIds[1],
-    //     inspectionDate: new Date().toISOString().split('T')[0],
-    //     status: 'scheduled',
-    //   },
-    // ]
+    const inspections: Inspection[] = [
+      {
+        inspectionId: uuidv4(),
+        propertyId: propertyIds[0],
+        inspectorId: inspectorIds[0],
+        clientId: clientIds[0],
+        inspectionDate: new Date().toISOString().split('T')[0],
+        status: 'completed',
+      },
+    ]
 
-    // const inspectionIds = await transaction
-    //   .table('inspections')
-    //   .bulkAdd(inspections, {
-    //     allKeys: true,
-    //   })
+    const inspectionIds = await transaction
+      .table('inspections')
+      .bulkAdd(inspections, {
+        allKeys: true,
+      })
 
-    // const inspectionFindings: InspectionFinding[] = [
-    //   {
-    //     findingId: uuidv4(),
-    //     inspectionId: inspectionIds[0],
-    //     description: 'Exposed wiring in the attic.',
-    //     latitude: 37.7749,
-    //     longitude: 122.4194,
-    //     photo: new ArrayBuffer(0),
-    //     type: 'CRITICAL',
-    //   },
-    //   {
-    //     findingId: uuidv4(),
-    //     inspectionId: inspectionIds[1],
-    //     description: 'Cracked foundation in the basement.',
-    //     latitude: 37.7749,
-    //     longitude: 122.4194,
-    //     photo: new ArrayBuffer(0),
-    //     type: 'WARNING',
-    //   },
-    // ]
+    const inspectionFindings: InspectionFinding[] = [
+      {
+        findingId: uuidv4(),
+        inspectionId: inspectionIds[0],
+        description: 'Mold on the bathroom floor.',
+        latitude: 41.1522,
+        longitude: -8.6097,
+        photo: await imagePathToArrayBuffer(Critial1),
+        type: 'CRITICAL',
+      },
+      {
+        findingId: uuidv4(),
+        inspectionId: inspectionIds[0],
+        description: 'The lamp under the AC is broken.',
+        latitude: 41.1522,
+        longitude: -8.6097,
+        photo: await imagePathToArrayBuffer(Warning1),
+        type: 'WARNING',
+      },
+      {
+        findingId: uuidv4(),
+        inspectionId: inspectionIds[0],
+        description: 'Compliant with local regulations.',
+        latitude: 41.1522,
+        longitude: -8.6097,
+        photo: await imagePathToArrayBuffer(Good1),
+        type: 'GOOD',
+      },
+      {
+        findingId: uuidv4(),
+        inspectionId: inspectionIds[0],
+        description: 'Compliant with local regulations.',
+        latitude: 41.1522,
+        longitude: -8.6097,
+        photo: await imagePathToArrayBuffer(Good2),
+        type: 'GOOD',
+      },
+    ]
 
-    // await db.inspectionFindings.bulkAdd(inspectionFindings)
+    await db.inspectionFindings.bulkAdd(inspectionFindings)
 
-    // console.log('Sample data inserted successfully.')
+    console.log('Sample data inserted successfully.')
   } catch (error) {
     console.error('Error populating sample data:', error)
   }

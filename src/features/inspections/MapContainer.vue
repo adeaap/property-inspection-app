@@ -22,7 +22,7 @@ export default {
       center: [longitude, latitude],
       bearing: 0,
       pitch: 0,
-      zoom: 15,
+      zoom: 12,
     })
 
     new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map)
@@ -35,6 +35,7 @@ export default {
     map.on('rotate', updateLocation)
     map.on('pitch', updateLocation)
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.map = map as any
   },
 
