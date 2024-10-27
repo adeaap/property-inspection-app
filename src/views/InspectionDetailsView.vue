@@ -1,43 +1,3 @@
-<!-- <template>
-  <header class="bg-white shadow">
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold tracking-tight text-gray-900">
-        Inspection Details
-      </h1>
-    </div>
-  </header>
-  <main>
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-
-      <MapContainer v-model="location" class="map-container" />
-    </div>
-  </main>
-</template>
-
-<script setup lang="ts">
-import MapContainer from '@/features/inspections/MapContainer.vue'
-import { ref } from 'vue'
-
-const props = defineProps<{
-  inspectionId: string
-}>()
-console.log(props.inspectionId)
-
-const location = ref({
-  lng: -71.224518,
-  lat: 42.213995,
-  zoom: 15,
-  pitch: 0,
-  bearing: 0,
-})
-</script>
-
-<style scoped>
-.map-container {
-  height: 400px;
-}
-</style> -->
-
 <template>
   <div class="min-h-full">
     <Disclosure as="nav" class="bg-indigo-600" v-slot="{ open }">
@@ -220,10 +180,6 @@ const location = ref({
               class="mt-1 flex sm:mt-0 flex-row flex-wrap sm:space-x-6 gap-4"
             >
               <div class="mt-2 flex items-center text-sm text-gray-500">
-                <!-- <BriefcaseIcon
-                  class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
-                  aria-hidden="true"
-                /> -->
                 #Id:
                 {{ allInpectionInfo.inspectionInfo.inspectionId.split('-')[0] }}
               </div>
@@ -282,14 +238,10 @@ const router = useRouter()
 // Local DB
 import { db } from '@/db'
 import type { AllInpectionInfo } from '@/db'
-// import { liveQuery } from 'dexie'
-// import { from, useObservable } from '@vueuse/rxjs'
 
 // Components
 import StatusTag from '@/components/StatusTag.vue'
 import InspectionFindingList from '@/features/inspections/InspectionFindingList.vue'
-// import InspectionList from '@/features/inspections/InspectionList.vue'
-// import AddInspection from '@/features/inspections/AddInspection.vue'
 
 const props = defineProps<{
   inspectionId: string
@@ -351,12 +303,6 @@ function getInspectionDetails() {
         .where({ inspectionId: props.inspectionId })
         .toArray()
 
-      // // Query by "foreign key" on vehicles:
-      // const austinsVehicles = await db.vehicles
-      //   .where({ owner: austin.id })
-      //   .toArray()
-      // // Include the vehicles in the result:
-      // austin.vehicles = austinsVehicles
       if (!clientInfo || !propertyInfo || !inspectorInfo) {
         return null
       }
@@ -373,11 +319,10 @@ function getInspectionDetails() {
 
 watch(
   props,
-  async newProps => {
-    if (newProps.inspectionId) {
+  async props => {
+    if (props.inspectionId) {
       allInpectionInfo.value = await getInspectionDetails()
     }
-    // executed immediately, then again when `source` changes
   },
   { immediate: true },
 )
