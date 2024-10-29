@@ -22,6 +22,7 @@
                     : 'text-white hover:bg-indigo-500 hover:bg-opacity-75',
                   'rounded-md px-3 py-2 text-sm font-medium',
                 ]"
+                :aria-label="item.name"
                 :aria-current="item.current ? 'page' : undefined"
               >
                 {{ item.name }}

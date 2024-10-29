@@ -3,6 +3,7 @@
 </template>
 
 <script lang="ts">
+import '@/global-styles/mapbox-styles.css'
 import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 

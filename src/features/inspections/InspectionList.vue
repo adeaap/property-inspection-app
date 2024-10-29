@@ -31,7 +31,10 @@
         </div>
       </div>
       <div class="flex flex-none items-center gap-x-4">
-        <RouterLink :to="`/start/${inspection.inspectionId}`">
+        <RouterLink
+          :to="`/start/${inspection.inspectionId}`"
+          :aria-label="inspection.inspectionId"
+        >
           <button
             v-if="inspection.status === 'scheduled'"
             type="button"
